@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task 4</title>
+    <style>
+      body {
+        background-color: lightgray;
+        font-size: 20px;
+        font-family: 'Times New Roman', Times, serif;
+      }
+      .header {
+        max-width: 1425px;
+        margin: 0 auto;
+        background-color: rgb(31, 199, 131);
+        padding: 20px;
+        text-align: center;
+        border-radius: 10px;
+        font-size: 30px;
+      }
+      .header > p {
+        font-size: 24px;
+      }
+      .content {
+        max-width: 950px;
+        margin: 10px auto;
+        background-color: rgb(31, 199, 131);
+        border-radius: 10px;
+        text-align: center;
+        padding: 5px 0;
+        font-size: 24px;
+      }
+
+      .btn {
+        max-width: 300px;
+        margin: 30px auto;
+      }
+      .button {
+        display: block;
+        text-decoration: none;
+        color: black;
+        background-color: rgb(31, 199, 131);
+        margin: 15px 25px;
+        text-align: center;
+        font-size: 22px;
+        padding: 10px 20px;
+        border-radius: 7px;
+      }
+      .button:hover {
+        background-color: rgb(63, 112, 210);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div>Задача 4</div>
+      <p>
+        4. Особиста бібліотека. Картотека домашньої бібліотеки: дані книги
+        (автори (піб, рік народження, короткий опис), назва книги, жанр,
+        видавництво (назва, реєстраційний номер, рік засування)). Реалізувати
+        розділи бібліотеки організувати додавання/вилучення книг та вибір книг
+        за назвою, за ПІБ автора, за видавництвом.
+      </p>
+    </div>
+    <div class="content">
+      <p>Відповідь до задачі у консолі</p>
+      <script>
+        class Author {
+          constructor(name, yearBirth, description) {
+            this.name = name
+            this.yearBirth = yearBirth
+            this.description = description
+          }
+        }
+
+        class Book {
+          constructor(author, bookTitle, genre, publishingHouse) {
+            this.author = author
+            this.bookTitle = bookTitle
+            this.genre = genre
+            this.publishingHouse = publishingHouse
+          }
+        }
+
+        class PublishingHouse {
+          constructor(name, registrationNumber, yearFoundation) {
+            this.name = name
+            this.registrationNumber = registrationNumber
+            this.yearFoundation = yearFoundation
+          }
+        }
+
+        class Library {
+          constructor() {
+            this.arrBooks = []
+          }
+
+          addingBooks(book) {
+            this.arrBooks.push(book)
+          }
+
+          withdrawalBooks(title) {
+            let ind = this.arrBooks.findIndex(
+              (book) => book.bookTitle === title
+            )
+            if (ind !== -1) {
+              this.arrBooks.splice(ind, 1)
+            }
+          }
+
+          bookSelectionByTitle(title) {
+            return this.arrBooks.filter((book) => book.bookTitle === title)
+          }
+
+          bookSelectionByAuthor(nameAuthor) {
+            return this.arrBooks.filter(
+              (book) => book.author.name === nameAuthor
+            )
+          }
+
+          bookSelectionByPublisher(publisher) {
+            return this.arrBooks.filter(
+              (book) => book.publishingHouse.name === publisher
+            )
+          }
+        }
+
+        let library = new Library()
+        let firstAuthor = new Author(
+          "Patric O'Brian",
+          1914,
+          'Англійський письменник та перекладач. Автор 20-томної епопеї про капітана Джека Обрі та доктора Стівена Метьюріна'
+        )
+        let publishingHouse1 = new PublishingHouse('АМФОРА', 12345, 1998)
+        let firstBook = new Book(
+          firstAuthor,
+          'Господар Морів',
+          'Історичний роман, пригоди',
+          publishingHouse1
+        )
+
+        let secondAuthor = new Author(
+          'Олександр Дюма',
+          1802,
+          'Французький письменник, драматург та журналіст'
+        )
+        let publishingHouse2 = new PublishingHouse('Academia', 67891, 1921)
+        let secondBook = new Book(
+          secondAuthor,
+          'Граф Монте-Крісто',
+          'Пригодницький роман',
+          publishingHouse2
+        )
+
+        library.addingBooks(firstBook)
+        library.addingBooks(secondBook)
+        console.log(library)
+        console.log(library.bookSelectionByTitle('Граф Монте-Крісто'))
+        console.log(library.bookSelectionByAuthor("Patric O'Brian"))
+        console.log(library.bookSelectionByPublisher('АМФОРА'))
+        library.withdrawalBooks('Граф Монте-Крісто')
+        console.log(library)
+      </script>
+    </div>
+    <div class="btn">
+      <a class="button" href="./index.html">На головну</a>
+    </div>
+  </body>
+</html>
